@@ -1,4 +1,9 @@
-
+//
+//  SceneDelegate.swift
+//  iQuiz
+//
+//  Created by Srinidhi Balaraman on 5/16/22.
+//
 
 import UIKit
 
