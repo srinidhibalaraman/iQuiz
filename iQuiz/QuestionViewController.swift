@@ -16,10 +16,10 @@ class AnswerCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         if selected {
-            contentView.backgroundColor = UIColor.green
+            contentView.backgroundColor = UIColor.systemCyan
             answerLabel.textColor = UIColor.white
         } else {
-            contentView.backgroundColor = UIColor.blue
+            contentView.backgroundColor = UIColor.lightGray
             answerLabel.textColor = UIColor.white
         }
     }

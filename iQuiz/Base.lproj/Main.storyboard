@@ -98,20 +98,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Question" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kK7-tH-hZS">
-                                <rect key="frame" x="173" y="154" width="68.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 out of 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uyE-FM-uFu">
-                                <rect key="frame" x="171.5" y="182.5" width="71" height="21"/>
+                                <rect key="frame" x="171.5" y="131" width="71" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="USZ-4v-Ep6">
-                                <rect key="frame" x="20" y="247" width="374" height="465"/>
+                                <rect key="frame" x="20" y="218" width="374" height="520"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="answerCell" id="ize-w7-G72" customClass="AnswerCell" customModule="iQuiz" customModuleProvider="target">
@@ -140,7 +134,10 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpr-TG-gu8">
-                                <rect key="frame" x="172" y="740" width="70" height="31"/>
+                                <rect key="frame" x="171" y="777" width="70" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="0fM-pc-Dx6"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="tinted" title="Submit"/>
                                 <connections>
@@ -148,21 +145,27 @@
                                     <segue destination="tuj-5y-PSp" kind="presentation" identifier="answerPage" id="1Rv-Nn-2cQ"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="240" text="Question" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kK7-tH-hZS">
+                                <rect key="frame" x="173" y="84" width="68" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="3iR-nG-pnx"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="USZ-4v-Ep6" firstAttribute="top" secondItem="uyE-FM-uFu" secondAttribute="bottom" constant="43.5" id="3KT-Yu-DE6"/>
-                            <constraint firstItem="uyE-FM-uFu" firstAttribute="centerX" secondItem="3iR-nG-pnx" secondAttribute="centerX" id="5cz-mt-PU6"/>
                             <constraint firstItem="3iR-nG-pnx" firstAttribute="trailing" secondItem="USZ-4v-Ep6" secondAttribute="trailing" constant="20" id="Ad4-hW-tlU"/>
-                            <constraint firstItem="uyE-FM-uFu" firstAttribute="top" secondItem="kK7-tH-hZS" secondAttribute="bottom" constant="8" symbolic="YES" id="H4a-cf-HnS"/>
+                            <constraint firstItem="uyE-FM-uFu" firstAttribute="centerX" secondItem="3iR-nG-pnx" secondAttribute="centerX" id="B6O-wg-FX2"/>
+                            <constraint firstItem="uyE-FM-uFu" firstAttribute="top" secondItem="kK7-tH-hZS" secondAttribute="bottom" constant="26.5" id="Fup-Br-34t"/>
                             <constraint firstItem="USZ-4v-Ep6" firstAttribute="centerX" secondItem="3iR-nG-pnx" secondAttribute="centerX" id="Hyd-bo-oRH"/>
-                            <constraint firstItem="bpr-TG-gu8" firstAttribute="top" secondItem="USZ-4v-Ep6" secondAttribute="bottom" constant="28" id="Lk5-01-tKw"/>
-                            <constraint firstItem="bpr-TG-gu8" firstAttribute="centerX" secondItem="3iR-nG-pnx" secondAttribute="centerX" id="OVV-IK-Q3b"/>
-                            <constraint firstItem="kK7-tH-hZS" firstAttribute="top" secondItem="3iR-nG-pnx" secondAttribute="top" constant="110" id="VmS-As-Agd"/>
-                            <constraint firstItem="USZ-4v-Ep6" firstAttribute="leading" secondItem="3iR-nG-pnx" secondAttribute="leading" constant="20" id="W9C-jH-lTJ"/>
-                            <constraint firstItem="kK7-tH-hZS" firstAttribute="centerX" secondItem="3iR-nG-pnx" secondAttribute="centerX" id="h8d-dg-sIa"/>
-                            <constraint firstItem="bpr-TG-gu8" firstAttribute="top" secondItem="3iR-nG-pnx" secondAttribute="top" constant="696" id="n8f-Ij-hxk"/>
+                            <constraint firstItem="bpr-TG-gu8" firstAttribute="centerX" secondItem="3iR-nG-pnx" secondAttribute="centerX" constant="-1" id="OVV-IK-Q3b"/>
+                            <constraint firstItem="kK7-tH-hZS" firstAttribute="top" secondItem="3iR-nG-pnx" secondAttribute="top" constant="40" id="WLr-wv-wzz"/>
+                            <constraint firstItem="kK7-tH-hZS" firstAttribute="centerX" secondItem="3iR-nG-pnx" secondAttribute="centerX" id="YPN-ql-7NA"/>
+                            <constraint firstItem="3iR-nG-pnx" firstAttribute="bottom" secondItem="bpr-TG-gu8" secondAttribute="bottom" constant="34" id="aGu-J9-n24"/>
+                            <constraint firstItem="USZ-4v-Ep6" firstAttribute="leading" secondItem="3iR-nG-pnx" secondAttribute="leading" constant="20" id="ju9-Uw-NqI"/>
+                            <constraint firstItem="USZ-4v-Ep6" firstAttribute="top" secondItem="uyE-FM-uFu" secondAttribute="bottom" constant="66" id="kC2-Ud-sGP"/>
+                            <constraint firstItem="bpr-TG-gu8" firstAttribute="top" secondItem="USZ-4v-Ep6" secondAttribute="bottom" constant="39" id="uYW-zs-wC3"/>
                         </constraints>
                     </view>
                     <connections>
@@ -209,7 +212,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A9H-BX-usI">
-                                <rect key="frame" x="180" y="619.5" width="54" height="31"/>
+                                <rect key="frame" x="180" y="502" width="54" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="tinted" title="Next"/>
                                 <connections>
@@ -222,7 +225,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Qh4-q8-sZK" firstAttribute="centerX" secondItem="fKB-0s-ncP" secondAttribute="centerX" id="9L4-fY-2Dl"/>
-                            <constraint firstItem="A9H-BX-usI" firstAttribute="top" secondItem="Qh4-q8-sZK" secondAttribute="bottom" constant="137.5" id="CEY-Ef-sGc"/>
+                            <constraint firstItem="A9H-BX-usI" firstAttribute="top" secondItem="Qh4-q8-sZK" secondAttribute="bottom" constant="20" id="CEY-Ef-sGc"/>
                             <constraint firstItem="kqS-jc-Gj3" firstAttribute="top" secondItem="0gI-vq-AvE" secondAttribute="bottom" constant="114" id="N3J-iB-f6I"/>
                             <constraint firstItem="Qh4-q8-sZK" firstAttribute="top" secondItem="kqS-jc-Gj3" secondAttribute="bottom" constant="19" id="eN7-VT-XcD"/>
                             <constraint firstItem="0gI-vq-AvE" firstAttribute="centerX" secondItem="fKB-0s-ncP" secondAttribute="centerX" id="fhT-L8-WX3"/>

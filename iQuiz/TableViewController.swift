@@ -24,50 +24,90 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     var subjectList = [Quiz]()
     
-    var alert : UIAlertController!
+    var urlString: String = "https://tednewardsandbox.site44.com/questions.json"
+
+    var refreshControl = UIRefreshControl()
+    
+    var images = ["science-icon", "marvel-icon",  "math-icon"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
 //        initList()
         fetchJsonData()
         
+        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+        
+    }
+    
+    @objc func refresh(sender: Any?) {
+        fetchJsonData()
+        self.refreshControl.endRefreshing()
+    }
+    
+    func internetAvailable() -> Bool {
+        if NetworkMonitor.shared.isConnected {
+            print("you're connected")
+            return true
+        } else {
+            print("you're not connected")
+            return false
+        }
     }
     
     func fetchJsonData(){
-        let url = URL(string: "https://tednewardsandbox.site44.com/questions.json")
-        let session = URLSession.shared.dataTask(with: url!) { (data, res, err) in
+        let url = URLRequest(url: URL(string: urlString)!)
+        
+        let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        let fileName = "data.json"
+        
+        if internetAvailable() {
+            let session = URLSession.shared.dataTask(with: url) { (data, res, err) in
 
-            guard let data = data else {
-                return
-            }
-                        
-            print(data)
-            
-            guard let categories = try? JSONDecoder().decode([Topic].self, from: data) else {
-                // Couldn't decode data into a Topic
-                return
-            }
-            
-            var fetchedQuizzes : [Quiz] = []
-            
-            for c in categories {
-                var questionList : [Question] = []
-                for q in c.questions {
-                    questionList.append(Question(text: q.text, answer: q.answer, answers: q.answers))
+                guard let data = data else {
+                    return
                 }
-                fetchedQuizzes.append(Quiz(title: c.title, desc: c.desc, questions: questionList))
+                            
+                guard let httpResponse = res as? HTTPURLResponse, httpResponse.statusCode == 200
+                else {
+                    let alert = UIAlertController(title: "Error", message: "error with http response", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    return
+                }
+                
+                guard let categories = try? JSONDecoder().decode([Topic].self, from: data) else {
+                    // Couldn't decode data into a Topic
+                    return
+                }
+                
+                var fetchedQuizzes : [Quiz] = []
+                
+                for c in categories {
+                    var questionList : [Question] = []
+                    for q in c.questions {
+                        questionList.append(Question(text: q.text, answer: q.answer, answers: q.answers))
+                    }
+                    fetchedQuizzes.append(Quiz(title: c.title, desc: c.desc, questions: questionList))
+                }
+                
+                print(fetchedQuizzes.count)
+                
+                DispatchQueue.main.async{
+                    self.subjectList = fetchedQuizzes
+    //                self.dataSource = QuizDataSource(self.quiz)
+    //                self.TopicTableView.dataSource = self.dataSource
+                    self.tableView.reloadData()
+                }
             }
-            
-            print(fetchedQuizzes.count)
-            
-            DispatchQueue.main.async{
-                self.subjectList = fetchedQuizzes
-//                self.dataSource = QuizDataSource(self.quiz)
-//                self.TopicTableView.dataSource = self.dataSource
-                self.tableView.reloadData()
-            }
+            session.resume()
+        } else {
+            let alert = UIAlertController(title: "Error", message: "error parsing data", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
         }
-        session.resume()
+        
     }
         
     
@@ -82,7 +122,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         let thisSubject = subjectList[indexPath.row]
         tableViewCell.subjectLabel.text = thisSubject.title
         tableViewCell.descLabel.text = thisSubject.desc
-//        tableViewCell.iconImage.image = UIImage(named: thisSubject.imageName)
+        tableViewCell.iconImage.image = UIImage(named: images[indexPath.row])
         
         return tableViewCell
     }
@@ -102,12 +142,29 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     @IBAction func openSettingsAlert(_ sender: Any) {
         
-        alert = UIAlertController(title: "Settings", message: "Settings go here", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: nil))
-        
-        self.present(alert, animated: true)
+        let alert = UIAlertController(title: "Settings", message: "Enter Question URL", preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.placeholder = "URL"
+            if let url = UserDefaults.standard.string(forKey: "question_url") {
+                textField.text = url
+            }
+        }
+        alert.addAction(UIAlertAction(title: "Check Now", style: .default, handler: { [weak alert] (_) in
+            let textField = alert?.textFields![0]
+            if textField?.text == "" {
+                return
+            }
+            guard (URL(string: (textField?.text)!) != nil) else {
+                let alert = UIAlertController(title: "Error", message: "Invalid URL", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            UserDefaults.standard.set(textField?.text, forKey: "question_url")
+            self.fetchJsonData()
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
 
 }
-
