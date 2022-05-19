@@ -26,10 +26,14 @@ class FeedbackViewController : UIViewController {
         super.viewDidLoad()
         
         questionLabel.text = questionTitle
-        answerLabel.text = questions[questionIndex].answer
+        print(questions[questionIndex])
+        let answerIndex = Int(questions[questionIndex].answer)! - 1
+        answerLabel.text = questions[questionIndex].answers[answerIndex]
         
         print(questions[0].answer)
-        if selected == questions[questionIndex].answer {
+       
+        print("this is answer index \(answerIndex)")
+        if selected == questions[questionIndex].answers[answerIndex] {
             feedbackLabel.text = "Correct!"
             correctAnswers += 1
         } else {

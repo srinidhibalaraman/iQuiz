@@ -44,8 +44,8 @@ class QuestionViewController: UIViewController, UITableViewDelegate, UITableView
         questionTableView.delegate = self
         questionTableView.dataSource = self
         print(questionIndex)
-        questionLabel.text = questions[questionIndex].question
-        options = [questions[questionIndex].option1, questions[questionIndex].option2, questions[questionIndex].option3, questions[questionIndex].answer]
+        questionLabel.text = questions[questionIndex].text
+        options = [questions[questionIndex].answers[0], questions[questionIndex].answers[1], questions[questionIndex].answers[2], questions[questionIndex].answers[3]]
         progressLabel.text = "\(correctAnswers + 1) out of \(questions.count)"
     }
     

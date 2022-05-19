@@ -43,14 +43,14 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6hX-d7-g3p">
-                                                    <rect key="frame" x="139" y="42" width="33" height="16"/>
+                                                    <rect key="frame" x="139" y="42" width="200" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cH3-op-MhV">
-                                                    <rect key="frame" x="139" y="11" width="42" height="21"/>
+                                                    <rect key="frame" x="139" y="11" width="200" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -99,19 +99,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Question" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kK7-tH-hZS">
-                                <rect key="frame" x="173" y="154" width="68.5" height="32.5"/>
+                                <rect key="frame" x="173" y="154" width="68.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 out of 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uyE-FM-uFu">
-                                <rect key="frame" x="171.5" y="194.5" width="71" height="21"/>
+                                <rect key="frame" x="171.5" y="182.5" width="71" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="USZ-4v-Ep6">
-                                <rect key="frame" x="20" y="259" width="374" height="453"/>
+                                <rect key="frame" x="20" y="247" width="374" height="465"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="answerCell" id="ize-w7-G72" customClass="AnswerCell" customModule="iQuiz" customModuleProvider="target">
@@ -163,7 +163,6 @@
                             <constraint firstItem="USZ-4v-Ep6" firstAttribute="leading" secondItem="3iR-nG-pnx" secondAttribute="leading" constant="20" id="W9C-jH-lTJ"/>
                             <constraint firstItem="kK7-tH-hZS" firstAttribute="centerX" secondItem="3iR-nG-pnx" secondAttribute="centerX" id="h8d-dg-sIa"/>
                             <constraint firstItem="bpr-TG-gu8" firstAttribute="top" secondItem="3iR-nG-pnx" secondAttribute="top" constant="696" id="n8f-Ij-hxk"/>
-                            <constraint firstItem="USZ-4v-Ep6" firstAttribute="top" secondItem="3iR-nG-pnx" secondAttribute="top" constant="215" id="ub9-vw-A5N"/>
                         </constraints>
                     </view>
                     <connections>
@@ -307,7 +306,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="F96-Pq-9dY"/>
+        <segue reference="NNv-6H-jZG"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">

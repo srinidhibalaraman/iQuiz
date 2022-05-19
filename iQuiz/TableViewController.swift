@@ -7,33 +7,72 @@
 
 import UIKit
 
+struct Topic : Decodable {
+    var title : String
+    var desc : String
+    var questions : [QuestionStruct]
+}
+
+struct QuestionStruct : Decodable {
+    var text : String
+    var answer : String
+    var answers : [String]
+}
+
 class TableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
-    var subjectList = [Subject]()
+    var subjectList = [Quiz]()
     
     var alert : UIAlertController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initList()        
-        alert = UIAlertController(title: "Settings", message: "Settings go here", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: nil))
+//        initList()
+        fetchJsonData()
+        
     }
     
-    func initList() {
-        let math = Subject(subject: "Mathematics", description: "Test your number knowledge!", imageName: "math-icon", questions: [Question(question: "What is 6 * 12?", option1: "18", option2: "612", option3: "126", answer: "72"),
-            Question(question: "What is 35 % 6?", option1: "6", option2: "30", option3: "4", answer: "5")])
-        subjectList.append(math)
-        let marvel = Subject(subject: "Marvel Superheroes", description: "Do you know your marvel superheroes?", imageName: "marvel-icon", questions: [Question(question: "Who is the author of the Marvel Comics?", option1: "Tony Stark", option2: "Steve Rogers", option3: "Robert Bruce Banner", answer: "Stan Lee")])
-             
-        subjectList.append(marvel)
-        let science = Subject(subject: "Science", description: "Atoms, Molecules, Mitochondria, and more!", imageName: "science-icon", questions: [Question(question: "What is the powerhouse of the cell?", option1: "Nucleus", option2: "Electron", option3: "AntiBody", answer: "Mitochondria")])
-        
-        subjectList.append(science)
+    func fetchJsonData(){
+        let url = URL(string: "https://tednewardsandbox.site44.com/questions.json")
+        let session = URLSession.shared.dataTask(with: url!) { (data, res, err) in
+
+            guard let data = data else {
+                return
+            }
+                        
+            print(data)
+            
+            guard let categories = try? JSONDecoder().decode([Topic].self, from: data) else {
+                // Couldn't decode data into a Topic
+                return
+            }
+            
+            var fetchedQuizzes : [Quiz] = []
+            
+            for c in categories {
+                var questionList : [Question] = []
+                for q in c.questions {
+                    questionList.append(Question(text: q.text, answer: q.answer, answers: q.answers))
+                }
+                fetchedQuizzes.append(Quiz(title: c.title, desc: c.desc, questions: questionList))
+            }
+            
+            print(fetchedQuizzes.count)
+            
+            DispatchQueue.main.async{
+                self.subjectList = fetchedQuizzes
+//                self.dataSource = QuizDataSource(self.quiz)
+//                self.TopicTableView.dataSource = self.dataSource
+                self.tableView.reloadData()
+            }
+        }
+        session.resume()
     }
+        
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        print(subjectList.count)
         return subjectList.count
     }
     
@@ -41,9 +80,9 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         let tableViewCell = tableView.dequeueReusableCell(withIdentifier: "tableViewCellID") as! TableViewCell
         
         let thisSubject = subjectList[indexPath.row]
-        tableViewCell.subjectLabel.text = thisSubject.subject
-        tableViewCell.descLabel.text = thisSubject.description
-        tableViewCell.iconImage.image = UIImage(named: thisSubject.imageName)
+        tableViewCell.subjectLabel.text = thisSubject.title
+        tableViewCell.descLabel.text = thisSubject.desc
+//        tableViewCell.iconImage.image = UIImage(named: thisSubject.imageName)
         
         return tableViewCell
     }
@@ -62,6 +101,10 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     @IBAction func openSettingsAlert(_ sender: Any) {
+        
+        alert = UIAlertController(title: "Settings", message: "Settings go here", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: nil))
+        
         self.present(alert, animated: true)
     }
     
